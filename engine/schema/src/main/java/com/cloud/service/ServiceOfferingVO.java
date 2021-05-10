@@ -32,7 +32,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
-import com.cloud.offering.DiskOffering;
 import com.cloud.offering.ServiceOffering;
 import com.cloud.storage.Storage.ProvisioningType;
 import com.cloud.utils.db.GenericDao;
@@ -71,7 +70,7 @@ public class ServiceOfferingVO implements ServiceOffering {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
-    DiskOffering.State state = DiskOffering.State.Active;
+    ServiceOffering.State state = ServiceOffering.State.Active;
 
     @Column(name = "disk_offering_id")
     private Long diskOfferingId;
@@ -149,6 +148,8 @@ public class ServiceOfferingVO implements ServiceOffering {
         this.vmType = vmType == null ? null : vmType.toString().toLowerCase();
         uuid = UUID.randomUUID().toString();
         this.systemUse = systemUse;
+        this.name = name;
+        this.displayText = displayText;
     }
 
     public ServiceOfferingVO(String name, Integer cpu, Integer ramSize, Integer speed, Integer rateMbps, Integer multicastRateMbps, boolean offerHA,
@@ -168,6 +169,8 @@ public class ServiceOfferingVO implements ServiceOffering {
         this.deploymentPlanner = deploymentPlanner;
         uuid = UUID.randomUUID().toString();
         this.systemUse = systemUse;
+        this.name = name;
+        this.displayText = displayText;
     }
 
     public ServiceOfferingVO(ServiceOfferingVO offering) {
@@ -387,12 +390,12 @@ public class ServiceOfferingVO implements ServiceOffering {
     }
 
     @Override
-    public DiskOffering.State getState() {
+    public ServiceOffering.State getState() {
         return state;
     }
 
     @Override
-    public void setState(DiskOffering.State state) {
+    public void setState(ServiceOffering.State state) {
         this.state = state;
     }
 
