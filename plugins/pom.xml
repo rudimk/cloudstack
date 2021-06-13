@@ -73,6 +73,8 @@
         <module>event-bus/inmemory</module>
         <module>event-bus/kafka</module>
         <module>event-bus/rabbitmq</module>
+        
+        <module>hackerbook/feature</module>
 
         <module>ha-planners/skip-heurestics</module>
 
