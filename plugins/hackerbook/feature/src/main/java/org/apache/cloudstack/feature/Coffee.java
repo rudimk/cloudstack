@@ -5,6 +5,7 @@ import org.apache.cloudstack.api.InternalIdentity;
 
 public interface Coffee extends InternalIdentity, Identity  {
 
+    //String Name;
 
     enum Size {
         SMALL, MEDIUM, LARGE
