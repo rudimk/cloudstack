@@ -61,9 +61,9 @@ public class ListCoffeesCmd extends BaseCmd {
     @Override
     public void execute() {
         final List<Coffee> coffees = coffeeManager.listCoffees(this);
-        final List<CoffeeRes> responseList = new ArrayList<>();
+        final List<CoffeesRes> responseList = new ArrayList<>();
         for (final Coffee coffee : coffees) {
-            CoffeeRes response = new CoffeeRes();
+            CoffeesRes response = new CoffeesRes();
             response.setId(coffee.getUuid());
             response.setName(coffee.getName());
         }
