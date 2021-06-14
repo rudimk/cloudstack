@@ -29,24 +29,27 @@ import org.apache.cloudstack.api.Parameter;
 import org.apache.cloudstack.api.response.CoffeesRes;
 //import org.apache.cloudstack.context.CallContext;
 import javax.inject.Inject;
-//import org.apache.cloudstack.feature.Coffee;
+import org.apache.cloudstack.feature.Coffee;
 import org.apache.cloudstack.feature.CoffeeManager;
 import org.apache.cloudstack.api.response.ListResponse;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.List;
 import org.apache.log4j.Logger;
 
-@APICommand(name = ListCoffeesCmd.APINAME, description = "List all coffees", responseObject = ListCoffeesRes.class, since = "4.16.0", requestHasSensitiveInfo = false, responseHasSensitiveInfo = false, authorized = {RoleType.Admin, RoleType.ResourceAdmin, RoleType.DomainAdmin, RoleType.User})
+@APICommand(name = ListCoffeesCmd.APINAME, description = "List all coffees", responseObject = CoffeesRes.class, since = "4.16.0", requestHasSensitiveInfo = false, responseHasSensitiveInfo = false, authorized = {RoleType.Admin, RoleType.ResourceAdmin, RoleType.DomainAdmin, RoleType.User})
 public class ListCoffeesCmd extends BaseCmd {
     public static final Logger LOG = Logger.getLogger(CreateCoffeeCmd.class);
     public static final String APINAME = "listCoffees";
 
-    @Parameter(name = ApiConstants.ID, type = CommandType.UUID, required = false, entityType = MyAPIResponse.class, description = "ID of my coffee")
+    @Parameter(name = ApiConstants.ID, type = CommandType.UUID, required = false, entityType = CoffeesRes.class, description = "ID of my coffee")
     private Long id;
 
     public Long getId() {
         return id;
     }
+
+    @Inject
+    private CoffeeManager coffeeManager;
 
     @Override
     public String getCommandName() {
@@ -65,12 +68,12 @@ public class ListCoffeesCmd extends BaseCmd {
         for (final Coffee coffee : coffees) {
             CoffeesRes response = new CoffeesRes();
             response.setId(coffee.getUuid());
-            response.setName(coffee.getName());
+            //response.setName(coffee.getName());
         }
-        final List<CoffeesRes> coffeeResponses = new ListResponse<>();
-        response.setResponseName(getCommandName());
+        final ListResponse<CoffeesRes> coffeeResponses = new ListResponse<>();
+        coffeeResponses.setResponseName(getCommandName());
         coffeeResponses.setResponses(responseList);
-        response.setObjectName("coffee");
+        coffeeResponses.setObjectName("coffee");
         setResponseObject(coffeeResponses);
     }
 }
