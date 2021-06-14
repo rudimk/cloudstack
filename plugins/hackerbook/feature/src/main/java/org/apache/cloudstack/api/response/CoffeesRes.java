@@ -19,10 +19,12 @@ package org.apache.cloudstack.api.response;
 
 import com.cloud.serializer.Param;
 import com.google.gson.annotations.SerializedName;
-import org.apache.cloudstack.api.BaseListCmd;
+import org.apache.cloudstack.api.BaseResponse;
+import org.apache.cloudstack.api.EntityReference;
+import org.apache.cloudstack.feature.Coffee;
 
 @EntityReference(value = Coffee.class)
-public class CoffeesRes extends BaseListCmd {
+public class CoffeesRes extends BaseResponse {
     @SerializedName("id")
     @Param(description = "The ID of the newly-created coffee")
     private String id;
@@ -31,5 +33,9 @@ public class CoffeesRes extends BaseListCmd {
     public void setId(String id) {
         this.id = id;
     }
+
+    /*public void setName(String name) {
+        this.name = name;
+    }*/
 
 }
