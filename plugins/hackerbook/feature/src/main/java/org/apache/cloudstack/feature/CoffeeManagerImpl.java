@@ -5,6 +5,7 @@ import org.apache.cloudstack.framework.config.ConfigKey;
 import javax.naming.ConfigurationException;
 import com.cloud.utils.component.ManagerBase;
 import org.apache.cloudstack.api.command.CreateCoffeeCmd;
+import org.apache.cloudstack.api.command.ListCoffeesCmd;
 //import org.apache.cloudstack.api.response.CreateCoffeeRes;
 //import org.apache.cloudstack.context.CallContext;
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.UUID;
+import java.util.Collections;
 
 public class CoffeeManagerImpl extends ManagerBase implements CoffeeManager, Configurable, PluggableService {
 
@@ -47,12 +49,13 @@ public class CoffeeManagerImpl extends ManagerBase implements CoffeeManager, Con
     public List<Class<?>> getCommands() {
         final List<Class<?>> cmdList = new ArrayList<>();
         cmdList.add(CreateCoffeeCmd.class);
+        cmdList.add(ListCoffeesCmd.class);
         return cmdList;
     }
 
     @Override
     public String getConfigComponentName() {
-        return "Coffee Manager";
+        return CoffeeManager.class.getSimpleName();
     }
 
     @Override
@@ -69,5 +72,10 @@ public class CoffeeManagerImpl extends ManagerBase implements CoffeeManager, Con
         coffee.put("id", uuid);
         coffee.put("name", "Espresso");
         return coffee;
+    }
+
+    @Override
+    public List<Coffee> listCoffees(ListCoffeesCmd cmd) {
+        return Collections.emptyList();
     }
 }
